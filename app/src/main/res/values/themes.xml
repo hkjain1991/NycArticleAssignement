@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.NycArticlesAssignment" parent="Theme.MaterialComponents.Light.DarkActionBar" />
+    <style name="Theme.NycArticlesAssignment" parent="Theme.MaterialComponents.Light.DarkActionBar">
+        <item name="colorPrimary">#AA00FF00</item>
+    </style>
 </resources>
