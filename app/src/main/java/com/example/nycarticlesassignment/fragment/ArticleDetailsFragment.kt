@@ -8,32 +8,39 @@ import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.example.nycarticlesassignment.R
+import com.example.nycarticlesassignment.databinding.FragmentArticleDetailsBinding
 import com.example.nycarticlesassignment.viewmodel.ArticleListDetailsViewModel
 
 class ArticleDetailsFragment : Fragment() {
 
+    private lateinit var fragmentArticleDetailsBinding: FragmentArticleDetailsBinding
     private val articleListDetailsViewModel: ArticleListDetailsViewModel by activityViewModels()
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         requireActivity().onBackPressedDispatcher.addCallback {
             articleListDetailsViewModel.setSelectedArticle(null)
             findNavController().navigate(R.id.action_articleDetailsFragment_to_articleListFragment2)
         }
         setupObservers()
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_article_details, container, false)
+        fragmentArticleDetailsBinding = FragmentArticleDetailsBinding.inflate(
+            inflater, container, false
+        )
+        return fragmentArticleDetailsBinding.root
     }
 
     private fun setupObservers() {
         articleListDetailsViewModel.articleDetailsLiveData.observe(viewLifecycleOwner) {
-            // set on UI
+            it?.let {
+                Glide.with(requireContext()).load(it.articleMedia[0].articleMediaMetadata[0].url!!)
+                    .into(fragmentArticleDetailsBinding.imgStock)
+                fragmentArticleDetailsBinding.txtTitle.text = it.title
+                fragmentArticleDetailsBinding.txtDescription.text = it.abstract
+            }
         }
     }
 }

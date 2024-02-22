@@ -8,29 +8,29 @@ import androidx.lifecycle.viewModelScope
 import com.example.nycarticlesassignment.enum.ArticleScreenError
 import com.example.nycarticlesassignment.repository.RemoteRepository
 import com.example.nycarticlesassignment.utils.InternetConnection
-import com.example.weatherapp.Results
+import com.example.nycarticlesassignment.model.response.ArticleMetaData
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class ArticleListDetailsViewModel : ViewModel() {
-    private val _articleListLiveData: MutableLiveData<List<Results>?> =
-        MutableLiveData<List<Results>?>()
+    private val _articleListLiveData: MutableLiveData<List<ArticleMetaData>?> =
+        MutableLiveData<List<ArticleMetaData>?>()
 
-    val articleListLiveData: LiveData<List<Results>?> = _articleListLiveData
+    val articleListLiveData: LiveData<List<ArticleMetaData>?> = _articleListLiveData
 
-    private val _articleDetailsLiveData: MutableLiveData<Results?> =
-        MutableLiveData<Results?>()
+    private val _articleDetailsLiveData: MutableLiveData<ArticleMetaData?> =
+        MutableLiveData<ArticleMetaData?>()
 
-    val articleDetailsLiveData: LiveData<Results?> = _articleDetailsLiveData
+    val articleDetailsLiveData: LiveData<ArticleMetaData?> = _articleDetailsLiveData
 
     private val _error: MutableLiveData<ArticleScreenError?> =
         MutableLiveData<ArticleScreenError?>()
 
     val error: LiveData<ArticleScreenError?> = _error
 
-    fun setSelectedArticle(results: Results?) {
-        _articleDetailsLiveData.value = results
+    fun setSelectedArticle(articleMetaData: ArticleMetaData?) {
+        _articleDetailsLiveData.value = articleMetaData
     }
 
     fun getLatestArticlesList(context: Context) {

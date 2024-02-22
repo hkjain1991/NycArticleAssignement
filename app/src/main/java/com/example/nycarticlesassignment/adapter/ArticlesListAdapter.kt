@@ -6,11 +6,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nycarticlesassignment.databinding.ItemArticleDetailsBinding
-import com.example.weatherapp.Results
+import com.example.nycarticlesassignment.model.response.ArticleMetaData
 
 class ArticlesListAdapter(
-    private var articleList: List<Results>,
-    private val callback: (Results) -> Unit
+    private var articleList: List<ArticleMetaData>,
+    private val callback: (ArticleMetaData) -> Unit
 ) :
     RecyclerView.Adapter<ArticlesListAdapter.ViewHolder>() {
 
@@ -22,9 +22,13 @@ class ArticlesListAdapter(
      */
     class ViewHolder(binding: ItemArticleDetailsBinding) : RecyclerView.ViewHolder(binding.root) {
         val title: TextView
+        val author: TextView
+        val date: TextView
 
         init {
-            title = binding.txtDescription
+            title = binding.txtTitle
+            author = binding.txtAuthor
+            date = binding.txtDate
         }
     }
 
@@ -40,13 +44,15 @@ class ArticlesListAdapter(
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val article = articleList[position]
         viewHolder.title.text = article.title
+        viewHolder.author.text = article.byline
+        viewHolder.date.text = article.publishedDate
         viewHolder.itemView.setOnClickListener {
             callback(article)
         }
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun updateList(articles: List<Results>) {
+    fun updateList(articles: List<ArticleMetaData>) {
         this.articleList = articles
         notifyDataSetChanged()
     }

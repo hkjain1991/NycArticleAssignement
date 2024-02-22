@@ -32,7 +32,9 @@ class ArticleListFragment : Fragment() {
         fragmentArticleListBinding = FragmentArticleListBinding.inflate(
             inflater, container, false
         )
-        articleListDetailsViewModel.getLatestArticlesList(requireContext())
+        if (articleListDetailsViewModel.articleListLiveData.value.isNullOrEmpty()) {
+            articleListDetailsViewModel.getLatestArticlesList(requireContext())
+        }
         setObservers()
         return fragmentArticleListBinding.root
     }
