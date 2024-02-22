@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">NycArticlesAssignment</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="internet_connection_error">Internet connection is not available.</string>
+    <string name="articles_not_available">weather info is not available for this zip code</string>
 </resources>
