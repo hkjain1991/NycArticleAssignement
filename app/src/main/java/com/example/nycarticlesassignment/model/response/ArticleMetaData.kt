@@ -1,9 +1,11 @@
 package com.example.nycarticlesassignment.model.response
 
-import com.example.nycarticlesassignment.model.response.ArticleMedia
 import com.google.gson.annotations.SerializedName
 
-
+/**
+ * Data class for Article Meta Data like publish date
+ * @author hemeandra jain
+ */
 data class ArticleMetaData(
     @SerializedName("uri") val uri: String,
     @SerializedName("url") val url: String,
@@ -27,5 +29,4 @@ data class ArticleMetaData(
     @SerializedName("geo_facet") val geoFacet: ArrayList<String> = arrayListOf(),
     @SerializedName("media") val articleMedia: ArrayList<ArticleMedia> = arrayListOf(),
     @SerializedName("eta_id") val etaId: Int
-
 )

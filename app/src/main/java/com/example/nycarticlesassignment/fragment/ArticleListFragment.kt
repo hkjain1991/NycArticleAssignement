@@ -17,9 +17,8 @@ import com.example.nycarticlesassignment.enum.ArticleScreenError
 import com.example.nycarticlesassignment.viewmodel.ArticleListDetailsViewModel
 
 /**
- * A simple [Fragment] subclass.
- * Use the [ArticleListFragment.newInstance] factory method to
- * create an instance of this fragment.
+ * Fragment to show article list
+ * @author Hemeandra jain
  */
 class ArticleListFragment : Fragment() {
 
@@ -36,7 +35,19 @@ class ArticleListFragment : Fragment() {
             articleListDetailsViewModel.getLatestArticlesList(requireContext())
         }
         setObservers()
+        setUpClickListeners()
         return fragmentArticleListBinding.root
+    }
+
+    /**
+     * Sets the click listeners
+     */
+    private fun setUpClickListeners() {
+        fragmentArticleListBinding.btnRetry.setOnClickListener {
+            it.visibility = View.GONE
+            fragmentArticleListBinding.proBar.visibility = View.VISIBLE
+            articleListDetailsViewModel.getLatestArticlesList(requireContext())
+        }
     }
 
     override fun onStart() {
@@ -44,6 +55,9 @@ class ArticleListFragment : Fragment() {
         fragmentArticleListBinding.proBar.visibility = View.VISIBLE
     }
 
+    /**
+     * Setting View Model's live data observer
+     */
     private fun setObservers() {
         val recyclerView: RecyclerView = fragmentArticleListBinding.articles
         val customAdapter = ArticlesListAdapter(emptyList()) {
@@ -56,6 +70,7 @@ class ArticleListFragment : Fragment() {
             list?.let {
                 recyclerView.visibility = View.VISIBLE
                 customAdapter.updateList(it)
+                fragmentArticleListBinding.btnRetry.visibility = View.GONE
             } ?: kotlin.run {
                 recyclerView.visibility = View.GONE
             }
@@ -63,6 +78,7 @@ class ArticleListFragment : Fragment() {
         articleListDetailsViewModel.error.observe(viewLifecycleOwner) {
             fragmentArticleListBinding.articles.visibility = View.GONE
             fragmentArticleListBinding.proBar.visibility = View.GONE
+            fragmentArticleListBinding.btnRetry.visibility = View.VISIBLE
             when (it) {
                 ArticleScreenError.INTERNET_NOT_AVAILABLE -> Toast.makeText(
                     requireContext(),
@@ -78,6 +94,7 @@ class ArticleListFragment : Fragment() {
 
                 else -> {
                     fragmentArticleListBinding.articles.visibility = View.VISIBLE
+                    fragmentArticleListBinding.btnRetry.visibility = View.GONE
                 }
             }
         }

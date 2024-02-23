@@ -13,6 +13,10 @@ import com.example.nycarticlesassignment.R
 import com.example.nycarticlesassignment.databinding.FragmentArticleDetailsBinding
 import com.example.nycarticlesassignment.viewmodel.ArticleListDetailsViewModel
 
+/**
+ * Fragment for showing articles detail
+ * @author hemeandra jain
+ */
 class ArticleDetailsFragment : Fragment() {
 
     private lateinit var fragmentArticleDetailsBinding: FragmentArticleDetailsBinding
@@ -33,11 +37,21 @@ class ArticleDetailsFragment : Fragment() {
         return fragmentArticleDetailsBinding.root
     }
 
+    /**
+     * Sets the observer for Live data
+     */
     private fun setupObservers() {
         articleListDetailsViewModel.articleDetailsLiveData.observe(viewLifecycleOwner) {
             it?.let {
-                Glide.with(requireContext()).load(it.articleMedia[0].articleMediaMetadata[0].url!!)
-                    .into(fragmentArticleDetailsBinding.imgStock)
+
+                if (
+                    it.articleMedia.isNotEmpty() && it.articleMedia[0].articleMediaMetadata.isNotEmpty()
+                ) {
+                    Glide.with(requireContext())
+                        .load(it.articleMedia[0].articleMediaMetadata[0].url!!)
+                        .into(fragmentArticleDetailsBinding.imgStock)
+                }
+
                 fragmentArticleDetailsBinding.txtTitle.text = it.title
                 fragmentArticleDetailsBinding.txtDescription.text = it.abstract
             }

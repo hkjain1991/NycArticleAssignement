@@ -8,6 +8,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.nycarticlesassignment.databinding.ItemArticleDetailsBinding
 import com.example.nycarticlesassignment.model.response.ArticleMetaData
 
+/**
+ * Adapter for showing the articles list
+ * @param articleList [List<ArticleMetaData>]
+ * @param callback when each row clicked
+ * @author hemeandra jain
+ */
 class ArticlesListAdapter(
     private var articleList: List<ArticleMetaData>,
     private val callback: (ArticleMetaData) -> Unit
@@ -51,6 +57,10 @@ class ArticlesListAdapter(
         }
     }
 
+    /**
+     * Updates list in the adapter
+     * @param articles [List<ArticleMetaData>]
+     */
     @SuppressLint("NotifyDataSetChanged")
     fun updateList(articles: List<ArticleMetaData>) {
         this.articleList = articles

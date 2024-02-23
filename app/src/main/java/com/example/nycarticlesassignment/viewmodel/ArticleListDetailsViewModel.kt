@@ -1,6 +1,7 @@
 package com.example.nycarticlesassignment.viewmodel
 
 import android.content.Context
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,6 +14,10 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+/**
+ * ViewModel for communicating between [ArticlesActivity] and [RemoteRepository]
+ * @author hemeandra jain
+ */
 class ArticleListDetailsViewModel : ViewModel() {
     private val _articleListLiveData: MutableLiveData<List<ArticleMetaData>?> =
         MutableLiveData<List<ArticleMetaData>?>()
@@ -41,7 +46,8 @@ class ArticleListDetailsViewModel : ViewModel() {
         }
     }
 
-    private fun callArticleListApi(
+    @VisibleForTesting
+    fun callArticleListApi(
         remoteRepository: RemoteRepository = RemoteRepository(),
         dispatcher: CoroutineDispatcher = Dispatchers.IO
     ) {

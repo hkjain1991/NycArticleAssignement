@@ -5,6 +5,10 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+/**
+ * Class to get [Retrofit] instance
+ * @author hemeandra jain
+ */
 object APIClient {
 
     private const val BASE_URL = "https://api.nytimes.com/"
